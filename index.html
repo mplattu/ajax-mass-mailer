@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>lazymailer</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id="wrap">
+        <div class='label'>From: </div>
+        <div><input type="text" id="from"></div>
+
+        <div class='label'>Subject: </div>
+        <div><input type="text" id="subject"></div>
+
+        <div class='label'>Emails (per line): </div>
+        <div><textarea id="emails"></textarea><div>
+
+            <div class='label'>Message</div>
+            <div><textarea id="message"></textarea></div>
+
+            <div class='label'>Attachment</div>
+            <div><input type="file" id="attachment" name="attachment"/></div>
+
+            <div class='label'>&nbsp;</div>
+        </div><input id="go" type="submit" value="send"/></div>
+
+        <div id="results"></div>
+    </div>
+
+    <script type="text/javascript" src="lazymailer.js"></script>
+</body>
+</html>
