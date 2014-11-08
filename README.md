@@ -1,4 +1,7 @@
 ajax-mass-mailer
 ================
 
-Mass mailer using jQuery.ajax
+mass mailer using jQuery.ajax
+
+demo page [here](http://piratelufi.com/~projects/ajax-mass-mailer/)
+
