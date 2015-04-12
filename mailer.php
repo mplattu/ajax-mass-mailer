@@ -7,7 +7,7 @@ if(!@empty($_POST['email'])) {
 
     $headers = array(
         'MIME-Version' => '1.0',
-        'Content-Type' => 'text/html; charset=iso-8859-1',
+        'Content-Type' => 'text/plain; charset=UTF-8',
         'X-Mailer' => 'PHP/' . phpversion()
     );
 
@@ -22,12 +22,12 @@ if(!@empty($_POST['email'])) {
     $message = '';
     if(!@empty($_POST['message'])) {
         $message = str_replace("\n", '', $_POST['message']);
-        $message = str_replace('\"', '"', $_POST['message']);
     }
 
     $subject = '';
     if(!@empty($_POST['subject'])) {
         $subject = $_POST['subject'];
+        $subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
     }
 
     $msgChunks = array();
@@ -43,8 +43,9 @@ if(!@empty($_POST['email'])) {
 
                 $headers['Content-Type'] = "multipart/mixed; boundary=$boundary\r\n";
                 $msgChunks[] = "--{$boundary}";
-                $msgChunks[] = 'Content-Type: text/html; charset="iso-8859-1"';
-                $msgChunks[] = "Content-Transfer-Encoding: 7bit\r\n";
+                $msgChunks[] = 'MIME-Version: 1.0';
+                $msgChunks[] = 'Content-type: text/plain; charset=UTF-8';
+                $msgChunks[] = "\r\n\r\n";
                 $msgChunks[] = "$message\r\n";
 
                 if($fh = fopen($tmpname, 'rb')) {
