@@ -21,7 +21,15 @@ if(!@empty($_POST['email'])) {
 
     $message = '';
     if(!@empty($_POST['message'])) {
-        $message = str_replace("\n", '', $_POST['message']);
+        $message = $_POST['message'];
+        // Convert LF+CR -> CR
+        $message = preg_replace("/\r\n/", "\n", $message);
+        // Convert LF -> CR
+        $message = preg_replace("/\r/", "\n", $message);
+        
+        // Rebuild message with spec-compliant LF+CR
+        $message_lines = preg_split("/\n/", $message);
+        $message = join("\r\n", $message_lines);
     }
 
     $subject = '';
