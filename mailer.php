@@ -99,7 +99,7 @@ if(!@empty($_POST['email'])) {
     	$f = fopen($LOGFILE, "a+");
     	if (flock($f, LOCK_SH)) {
     		fseek($f, 0, SEEK_END);
-    		fwrite($f, $email."\t".$result."\n");
+    		fwrite($f, date(DATE_W3C)."\t".$email."\t".$result."\n");
     		fflush($f);
     		flock($f, LOCK_UN);
     	}
