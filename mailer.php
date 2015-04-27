@@ -1,5 +1,11 @@
 <?php
 
+if (is_readable("settings.php")) {
+	// There is a settings file
+	// You may want to use this to set your $LOGFILE
+	include_once("settings.php");
+}
+
 if(!@empty($_POST['email'])) {
 
     // $delay = mt_rand(1,10);
@@ -88,6 +94,18 @@ if(!@empty($_POST['email'])) {
     }
 
     $result = ($mailResult = mail($email, $subject, $message, $headerString)) ? 'good' : ' bad';
+    
+    if (!is_null($LOGFILE)) {
+    	$f = fopen($LOGFILE, "a+");
+    	if (flock($f, LOCK_SH)) {
+    		fseek($f, 0, SEEK_END);
+    		fwrite($f, $email."\t".$result."\n");
+    		fflush($f);
+    		flock($f, LOCK_UN);
+    	}
+    	fclose($f);
+    }
+    
     $array = array('sent' => $result, 'email' => $email);
     echo json_encode($array);
     exit;
